@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const db = require('./db.mysql');
+const authRoutes = require('./routes/auth')
 
 
 app.use('auth', authRoutes);
