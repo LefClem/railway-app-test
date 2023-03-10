@@ -7,7 +7,7 @@ app.get('/home', async (req, res, next) => {
 })
 
 app.get('/depense', (req, res, next) => {
-    let sql = 'SELECT * FROM task';
+    let sql = 'SELECT * FROM ' + db.config.database + ".task";
     db.query(sql, (err, results) => {
         try {
             if(err) throw err;
