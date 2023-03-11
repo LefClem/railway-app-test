@@ -4,7 +4,7 @@ const db = require('./db.mysql');
 const authRoutes = require('./routes/auth')
 
 
-app.use('auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
