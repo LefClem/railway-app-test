@@ -2,9 +2,12 @@ const express = require("express");
 const app = express();
 const db = require('./db.mysql');
 const authRoutes = require('./routes/auth')
+const spendingRoutes = require('./routes/spending')
 
+app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/spend', spendingRoutes);
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -17,21 +20,6 @@ app.use((req, res, next) => {
   });
 
 
-app.get('/home', async (req, res, next) => {
-    res.send('Hello world !')
-})
 
-app.get('/depense', (req, res, next) => {
-    let sql = 'SELECT * FROM ' + db.config.database + ".Spending";
-    db.query(sql, (err, results) => {
-        try {
-            if(err) throw err;
-            res.send(results)
-        } catch (error) {
-            res.send(error)
-            console.error(error);
-        }
-    })
-})
 
 module.exports = app;
