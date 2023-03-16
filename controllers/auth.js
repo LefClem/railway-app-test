@@ -8,10 +8,10 @@ exports.signup = async (req, res) => {
   try {
     const user = {
       ...req.body,
-      password: await bcrypt.hash(req.body.password, 10),
+      password: await bcrypt.hash(req.body.password, 10)
     };
 
-    if (!user.name || !user.email || !user.password) {
+    if (!user.first_name || !user.last_name || !user.email || !user.password) {
       res.status(401).json({ message: "Veuillez remplir les champs !" });
     }
 
@@ -23,7 +23,7 @@ exports.signup = async (req, res) => {
       res.status(403).json({ message: "Email déjà utilisé !" });
     }
   } catch (error) {
-    console.log(error);
+    console.log(error)
     res.status(400).json({ error });
   }
 };
@@ -44,22 +44,3 @@ exports.login = async (req, res) => {
     }
   }
 };
-
-// exports.getOneUser = async (req, res) => {
-//   try {
-//     const user = await userModels.getOneUser(req.auth.id);
-//     res.status(200).json({ user })
-//   } catch (error) {
-//     res.status(404).json({ error })
-//   }
-// }
-
-// exports.updateProfilePicture = async (req, res) => {
-//   try {
-//     const picture = `${req.protocol}://${req.get('host')}/images/profile/${req.file.filename}`
-//     const userImage = await userModels.updateProfilePicture(req.auth.id, picture);
-//     res.status(200).json({ userImage})
-//   } catch (error) {
-//     res.status(400).json({ error })
-//   }
-// }

@@ -41,9 +41,8 @@ class UserModels {
           } else {
             resolve({
               user_id: results[0].id,
-              admin: results[0].admin,
               token: jwt.sign(
-                { userId: results[0].id, admin: results[0].admin },
+                { userId: results[0].id },
                 process.env.SECRET_KEY,
                 { expiresIn: "24H" }
               ),
@@ -53,34 +52,7 @@ class UserModels {
       });
     });
   }
-  
-  getOneUser(id){
-    let sql = 'SELECT * FROM groupomania.user WHERE id= ?';
-    return new Promise((resolve, reject) => {
-      db.query(sql, id, (err, results) => {
-        try {
-          resolve(results);
-        } catch (error) {
-          reject(error);
-        }
-      })
-    })
-  }
 
-  updateProfilePicture(id, file){
-    let sql = 'UPDATE user SET profile_picture = ? WHERE id = ?';
-    return new Promise((resolve) => {
-          db.query(sql, [file, id], (err, results) => {
-            try {
-              if(err) throw err;
-              resolve(results);
-            } catch (error) {
-              reject(error);
-            }
-          })
-      // })
-    })
-  }
 }
 
 module.exports = UserModels;
